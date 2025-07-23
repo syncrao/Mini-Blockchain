@@ -1,0 +1,24 @@
+{
+  "name": "mini-blockchain",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "description": "This project is a **from-scratch implementation of a basic blockchain** using only vanilla JavaScript. It's designed to help you understand the core components of how blockchains like Ethereum work — including blocks, hashing, mining, and validation — without relying on external frameworks.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/syncrao/Mini-Blockchain.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/syncrao/Mini-Blockchain/issues"
+  },
+  "homepage": "https://github.com/syncrao/Mini-Blockchain#readme",
+  "dependencies": {
+    "elliptic": "^6.6.1"
+  }
+}
