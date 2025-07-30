@@ -41,6 +41,13 @@
 
 
 
+
+
+
+
+
+
+
 // step 1 wallet.js and app.js
 
 // app.js add  wallet? state  create componnent wallet.js and Account.js
@@ -58,7 +65,24 @@ function App() {
   );
 }
 
-// add simple div
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Account . js  add simple div 
 function Account(props) {
     return <>
     <div>Account</div>
@@ -67,7 +91,16 @@ function Account(props) {
 
 
 
-// setMode state ? 
+
+
+
+
+
+
+
+
+
+// Wallet .js  setMode state ? 
 import { ethers } from "ethers"
 import { useRef, useState } from "react"
 
@@ -107,6 +140,7 @@ const Wallet = (props) => {
 // step 2 utils.js and account.js
 
 
+// Account js
 import { useEffect, useState } from "react"
 import { getBalance } from "./utlis.js"
 
@@ -130,6 +164,17 @@ function Account(props) {
     </>
 }
 
+
+
+
+
+
+
+
+
+
+
+
 // A provider is how you read data from the blockchain.
 // It connects your application to a remote Ethereum node (via JSON-RPC, Infura, Alchemy, etc.) and lets you:
 
@@ -141,6 +186,9 @@ function Account(props) {
 
 // Listen to events
 
+
+
+// utlis . js
 import { JsonRpcProvider, formatEther } from "ethers";
 
 const url = "https://rpc-sepolia.rockx.com"
@@ -160,8 +208,54 @@ export async function getBalance(address = "0x65a0D7a13eb479087658e636aA81DA125f
 
 
 
-// step 3 SendEth.js and account.js
 
+
+
+// step 3 utils SendEth.js and account.js
+
+
+// utlis . js
+
+import { JsonRpcProvider, formatEther, parseEther } from "ethers";
+import { Wallet } from "ethers";
+
+const provider = new JsonRpcProvider("https://rpc-sepolia.rockx.com")
+
+const myWallet = Wallet.fromPhrase("funny report blush unveil gadget leopard unaware relax eager auto despair luxury")
+
+console.log(myWallet)
+
+
+// ✅ You send it to the provider, not directly to a blockchain node.
+// The provider acts as a gateway to the blockchain
+//  — it forwards your signed transaction to a node, which then broadcasts it to the network.
+
+export async function handleSend(wallet = myWallet, to = "0x65a0D7a13eb479087658e636aA81DA125faBce99", amount = "0.0001") {
+    const signer = wallet.connect(provider)
+    const txn = await signer.sendTransaction({ to, value: parseEther(amount) })
+    return txn
+}
+
+export async function getBalance(address = myWallet.address) {
+    const balance = await provider.getBalance(address)
+    return formatEther(balance)
+}
+
+
+// console.log(await getBalance())
+// console.log(await handleSend())
+
+
+
+
+
+
+
+
+
+
+
+// Account.js setMode ?
 import { useEffect, useState } from "react"
 import { getBalance } from "./utlis.js"
 import SendEth from "./SendEth.js"
@@ -193,6 +287,14 @@ function Account(props) {
 
 
 
+
+
+
+
+
+
+
+// SendEth . js create input  
 import { useRef, useState } from "react"
 import { handleSend } from "./utlis.js"
 
@@ -218,34 +320,11 @@ function SendEth(props) {
 }
 
 
-import { JsonRpcProvider, formatEther, parseEther } from "ethers";
-import { Wallet } from "ethers";
-
-const provider = new JsonRpcProvider("https://rpc-sepolia.rockx.com")
-
-const myWallet = Wallet.fromPhrase("funny report blush unveil gadget leopard unaware relax eager auto despair luxury")
-
-console.log(myWallet)
 
 
-// ✅ You send it to the provider, not directly to a blockchain node.
-// The provider acts as a gateway to the blockchain
-//  — it forwards your signed transaction to a node, which then broadcasts it to the network.
-
-export async function handleSend(wallet = myWallet, to = "0x65a0D7a13eb479087658e636aA81DA125faBce99", amount = "0.0001") {
-    const signer = wallet.connect(provider)
-    const txn = await signer.sendTransaction({ to, value: parseEther(amount) })
-    return txn
-}
-
-export async function getBalance(address = myWallet.address) {
-    const balance = await provider.getBalance(address)
-    return formatEther(balance)
-}
 
 
-// console.log(await getBalance())
-// console.log(await handleSend())
+
 
 
 
